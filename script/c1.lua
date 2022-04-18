@@ -106,7 +106,7 @@ function s.ntcon(e,c,minc)
 	return max>0 and Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
 end
 function s.sumtg(e,c,tp,sumtp)
-	for _,exceps in ipairs({75285069,22996376,36354007,95701283,51192573}) do --listing card ids for cards like Moisture Creature
+	for _,exceps in ipairs({75285069,22996376,36354007,95701283,51192573,40921744,6849042,58554959,5186893,70969517}) do --listing card ids for cards like Moisture Creature
 		if c:IsCode(exceps) then return false end
 	end
 	
