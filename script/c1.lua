@@ -1,5 +1,6 @@
 --Junior Journey Format
 --Scripted by threems
+--note: Card Advance seems to let you get a regular normal summon with this active
 local s,id=GetID()
 
 function s.initial_effect(c)
@@ -105,12 +106,22 @@ function s.ntcon(e,c,minc)
 	local _,max=c:GetTributeRequirement()
 	return max>0 and Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
 end
+function s.advf_filter(c,tp)
+	return c:IsLevelAbove(5) and (c:IsControler(tp) or c:IsFaceup())
+end
 function s.sumtg(e,c,tp,sumtp)
 	for _,exceps in ipairs({75285069,22996376,36354007,95701283,51192573,40921744,6849042,58554959,5186893,70969517,6614221}) do --listing card ids for cards like Moisture Creature
 		if c:IsCode(exceps) then return false end
 	end
 	
 	if c:IsHasEffect(EFFECT_LIMIT_SUMMON_PROC) then return false end
+	
+	--Code for Advance Force
+	local tploc=c:GetControler()
+	if c:IsLevelAbove(7) and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,38589847),tploc,LOCATION_SZONE,LOCATION_SZONE,nil,tploc) then
+		local mg=Duel.GetMatchingGroup(s.advf_filter,tploc,LOCATION_MZONE,LOCATION_MZONE,nil,tploc)
+		if Duel.CheckTribute(c,1,1,mg) then return false end
+	end
 	
 	return (sumtp&SUMMON_TYPE_TRIBUTE)==SUMMON_TYPE_TRIBUTE
 end
