@@ -118,7 +118,7 @@ function s.sumtg(e,c,tp,sumtp)
 	
 	--Code for Advance Force
 	local tploc=c:GetControler()
-	if c:IsLevelAbove(7) and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,38589847),tploc,LOCATION_SZONE,LOCATION_SZONE,nil,tploc) then
+	if c:IsLevelAbove(7) and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,38589847),tploc,LOCATION_SZONE,0,1,nil) then
 		local mg=Duel.GetMatchingGroup(s.advf_filter,tploc,LOCATION_MZONE,LOCATION_MZONE,nil,tploc)
 		if Duel.CheckTribute(c,1,1,mg) then return false end
 	end
