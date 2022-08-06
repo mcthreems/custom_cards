@@ -106,11 +106,15 @@ function s.ntcon(e,c,minc)
 	local _,max=c:GetTributeRequirement()
 	return max>0 and Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
 end
-function s.advf_filter(c,tp)
+function s.advf_filter(c,tp) --filter for Advance Force functionality
 	return c:IsLevelAbove(5) and (c:IsControler(tp) or c:IsFaceup())
 end
 function s.sumtg(e,c,tp,sumtp)
-	for _,exceps in ipairs({75285069,22996376,36354007,95701283,51192573,40921744,6849042,58554959,5186893,70969517,6614221}) do --listing card ids for cards like Moisture Creature
+	for _,exceps in ipairs({75285069,22996376,36354007,95701283,51192573,
+	                   40921744,6849042,58554959,5186893,70969517,
+	                   6614221,55690251,88071625,72258771,78651105,
+	                   10026986,81254059,3825890,41753322,10060427,
+	                   5186893,20003527,42685062,15605085}) do --listing card ids for cards like Moisture Creature
 		if c:IsCode(exceps) then return false end
 	end
 	
