@@ -114,7 +114,8 @@ function s.sumtg(e,c,tp,sumtp)
 	                   40921744,6849042,58554959,5186893,70969517,
 	                   6614221,55690251,88071625,72258771,78651105,
 	                   10026986,81254059,3825890,41753322,10060427,
-	                   5186893,20003527,42685062,15605085}) do --listing card ids for cards like Moisture Creature
+	                   5186893,20003527,42685062,15605085,28348537,
+	                   53199020,58494728}) do --listing card ids for cards like Moisture Creature
 		if c:IsCode(exceps) then return false end
 	end
 	
