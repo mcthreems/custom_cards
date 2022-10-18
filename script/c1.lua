@@ -59,7 +59,7 @@ function s.init(c)
 	e7:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e7:SetCode(EVENT_SSET)
 	e7:SetOperation(s.checkop)
-	Duel.RegisterEffect(e7,0)	
+	Duel.RegisterEffect(e7,0)
 	local e8=Effect.GlobalEffect()
 	e8:SetType(EFFECT_TYPE_FIELD)
 	e8:SetCode(EFFECT_CANNOT_SSET)
@@ -115,28 +115,31 @@ function s.sumtg(e,c,tp,sumtp)
 	                   6614221,55690251,88071625,72258771,78651105,
 	                   10026986,81254059,3825890,41753322,10060427,
 	                   5186893,20003527,42685062,15605085,28348537,
-	                   53199020,58494728}) do --listing card ids for cards like Moisture Creature
+	                   53199020,58494728,15545291,61231400,25524823,
+	                   23689697,96470883,69327790,69230391,87602890,
+	                   87288189,96570609,23064604,42880485,3912064,
+	                   76930964,30907810,5008836,61391302,53318263}) do --listing card ids for cards like Moisture Creature
 		if c:IsCode(exceps) then return false end
 	end
-	
+
 	if c:IsHasEffect(EFFECT_LIMIT_SUMMON_PROC) then return false end
-	
+
 	--Code for Advance Force
 	local tploc=c:GetControler()
 	if c:IsLevelAbove(7) and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,38589847),tploc,LOCATION_SZONE,0,1,nil) then
 		local mg=Duel.GetMatchingGroup(s.advf_filter,tploc,LOCATION_MZONE,LOCATION_MZONE,nil,tploc)
 		if Duel.CheckTribute(c,1,1,mg) then return false end
 	end
-	
+
 	return (sumtp&SUMMON_TYPE_TRIBUTE)==SUMMON_TYPE_TRIBUTE
 end
 function s.settg(e,c,tp,sumtp)
 	for _,exceps in ipairs({22996376}) do --listing card ids for cards like Moisture Creature, but for sets
 		if c:IsCode(exceps) then return false end
 	end
-	
+
 	if c:IsHasEffect(EFFECT_LIMIT_SET_PROC) then return false end
-	
+
 	return (sumtp&SUMMON_TYPE_TRIBUTE)==SUMMON_TYPE_TRIBUTE
 end
 function s.acfilter(c)
@@ -196,10 +199,10 @@ end
 function s.setlimit(e,c,tp)
 	--If it's not a main phase no need to restrict sets
 	if Duel.GetCurrentPhase()~=PHASE_MAIN1 and Duel.GetCurrentPhase()~=PHASE_MAIN2 then return false end
-	
+
 	--similarly, if the current chain is above 0 no need to restrict sets
 	if Duel.GetCurrentChain()>0 then return false end
-	
+
 	return c:IsLocation(LOCATION_HAND) and (Duel.GetFlagEffect(tp,TYPE_SPELL)>0
 		or Duel.GetFlagEffect(tp,TYPE_TRAP)>0)
 end
@@ -208,13 +211,13 @@ function s.nodraw(e,c,tp)
 end
 function s.quicklimit(e,re,tp)
 	if re:GetHandler():GetOriginalType()==TYPE_SPELL+TYPE_QUICKPLAY and re:IsHasType(EFFECT_TYPE_ACTIVATE) then
-		
+
 		--if the current chain is above 0 no quick-play can activate
 		if Duel.GetCurrentChain()>0 then return true end
-	
+
 		--If it's not a main phase no quick-play can activate
 		if Duel.GetCurrentPhase()~=PHASE_MAIN1 and Duel.GetCurrentPhase()~=PHASE_MAIN2 then return true end
-	
+
 		--only turn player can activate
 		return Duel.GetTurnPlayer()~=tp
 	end
