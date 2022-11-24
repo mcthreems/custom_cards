@@ -153,7 +153,7 @@ function s.aclimit(e,re,tp)
 	if re:IsActiveType(TYPE_SPELL) and not re:IsActiveType(TYPE_PENDULUM) then --and re:GetHandler():IsLocation(LOCATION_HAND)
 		return Duel.IsExistingMatchingCard(s.acfilter,tp,0xff,0,1,nil)
 	end
-	if re:IsActiveType(TYPE_PENDULUM) then --and re:GetHandler():IsLocation(LOCATION_HAND)
+	if re:IsActiveType(TYPE_SPELL) and re:IsActiveType(TYPE_PENDULUM) then --and re:GetHandler():IsLocation(LOCATION_HAND)
 		return Duel.IsExistingMatchingCard(s.acfilterpend,tp,0xff,0,1,nil)
 	end
 	return false
