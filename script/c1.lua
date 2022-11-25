@@ -150,19 +150,19 @@ function s.acfilterpend(c)
 end
 function s.aclimit(e,re,tp)
 	if not re:IsHasType(EFFECT_TYPE_ACTIVATE) then return false end
-	if re:IsActiveType(TYPE_SPELL) and not re:IsActiveType(TYPE_PENDULUM) then --and re:GetHandler():IsLocation(LOCATION_HAND)
+	if re:IsActiveType(TYPE_SPELL) and not re:IsActiveType(TYPE_SPELL+TYPE_PENDULUM) then --and re:GetHandler():IsLocation(LOCATION_HAND)
 		return Duel.IsExistingMatchingCard(s.acfilter,tp,0xff,0,1,nil)
 	end
-	if re:IsActiveType(TYPE_SPELL) and re:IsActiveType(TYPE_PENDULUM) then --and re:GetHandler():IsLocation(LOCATION_HAND)
+	if re:IsActiveType(TYPE_SPELL+TYPE_PENDULUM) then --and re:GetHandler():IsLocation(LOCATION_HAND)
 		return Duel.IsExistingMatchingCard(s.acfilterpend,tp,0xff,0,1,nil)
 	end
 	return false
 end
 function s.aclimit1(e,tp,eg,ep,ev,re,r,rp)
-	if re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:IsActiveType(TYPE_SPELL) and not re:IsLocation(LOCATION_PZONE) then --and re:GetHandler():IsPreviousLocation(LOCATION_HAND)
+	if re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:IsActiveType(TYPE_SPELL) and not re:IsActiveType(TYPE_SPELL+TYPE_PENDULUM) then --and re:GetHandler():IsPreviousLocation(LOCATION_HAND)
 		re:GetHandler():RegisterFlagEffect(EFFECT_TYPE_ACTIVATE+TYPE_SPELL,RESET_PHASE+PHASE_END,0,1)
 	end
-	if re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:IsActiveType(TYPE_SPELL) and re:IsLocation(LOCATION_PZONE) then
+	if re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:IsActiveType(TYPE_SPELL+TYPE_PENDULUM) then
 		re:GetHandler():RegisterFlagEffect(EFFECT_TYPE_ACTIVATE+TYPE_SPELL+TYPE_PENDULUM,RESET_PHASE+PHASE_END,0,1)
 	end
 end
