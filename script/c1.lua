@@ -143,17 +143,17 @@ function s.settg(e,c,tp,sumtp)
 	return (sumtp&SUMMON_TYPE_TRIBUTE)==SUMMON_TYPE_TRIBUTE
 end
 function s.acfilter(c)
-	return c:GetFlagEffect(EFFECT_TYPE_ACTIVATE+TYPE_SPELL)>0 or c:GetFlagEffect(EFFECT_TYPE_ACTIVATE+TYPE_SPELL+TYPE_PENDULUM)>1
+	return c:GetFlagEffect(EFFECT_TYPE_ACTIVATE+TYPE_SPELL)>0 or c:GetFlagEffect(EFFECT_TYPE_ACTIVATE+TYPE_PENDULUM)>1
 end
 function s.acfilterpend(c)
-	return c:GetFlagEffect(EFFECT_TYPE_ACTIVATE+TYPE_SPELL+TYPE_PENDULUM)>1
+	return c:GetFlagEffect(EFFECT_TYPE_ACTIVATE+TYPE_PENDULUM)>1
 end
 function s.aclimit(e,re,tp)
 	if not re:IsHasType(EFFECT_TYPE_ACTIVATE) then return false end
 	local tpe=re:GetActiveType()
-	if re:IsActiveType(TYPE_SPELL) and (tpe==TYPE_SPELL or tpe==TYPE_SPELL+TYPE_QUICKPLAY or tpe==TYPE_SPELL+TYPE_CONTINUOUS or tpe==TYPE_SPELL+TYPE_EQUIP or tpe==TYPE_SPELL+TYPE_FIELD or tpe==TYPE_SPELL+TYPE_RITUAL) then --and re:GetHandler():IsLocation(LOCATION_HAND)
+	if tpe==TYPE_SPELL or tpe==TYPE_SPELL+TYPE_QUICKPLAY or tpe==TYPE_SPELL+TYPE_CONTINUOUS or tpe==TYPE_SPELL+TYPE_EQUIP or tpe==TYPE_SPELL+TYPE_FIELD or tpe==TYPE_SPELL+TYPE_RITUAL then --and re:GetHandler():IsLocation(LOCATION_HAND)
 		return Duel.IsExistingMatchingCard(s.acfilter,tp,0xff,0,1,nil)
-	elseif re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:GetActiveType(TYPE_SPELL) then
+	elseif re:IsActiveType(TYPE_SPELL) then
 		return Duel.IsExistingMatchingCard(s.acfilterpend,tp,0xff,0,1,nil)
 	end
 	return false
@@ -162,8 +162,8 @@ function s.aclimit1(e,tp,eg,ep,ev,re,r,rp)
 	local tpe=re:GetActiveType()
 	if re:IsHasType(EFFECT_TYPE_ACTIVATE) and (tpe==TYPE_SPELL or tpe==TYPE_SPELL+TYPE_QUICKPLAY or tpe==TYPE_SPELL+TYPE_CONTINUOUS or tpe==TYPE_SPELL+TYPE_EQUIP or tpe==TYPE_SPELL+TYPE_FIELD or tpe==TYPE_SPELL+TYPE_RITUAL) then --and re:GetHandler():IsPreviousLocation(LOCATION_HAND)
 		re:GetHandler():RegisterFlagEffect(EFFECT_TYPE_ACTIVATE+TYPE_SPELL,RESET_PHASE+PHASE_END,0,1)
-	elseif re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:GetActiveType(TYPE_SPELL) then
-		re:GetHandler():RegisterFlagEffect(EFFECT_TYPE_ACTIVATE+TYPE_SPELL+TYPE_PENDULUM,RESET_PHASE+PHASE_END,0,1)
+	elseif re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:IsActiveType(TYPE_SPELL) then
+		re:GetHandler():RegisterFlagEffect(EFFECT_TYPE_ACTIVATE+TYPE_PENDULUM,RESET_PHASE+PHASE_END,0,1)
 	end
 end
 function s.acfilter2(c)
